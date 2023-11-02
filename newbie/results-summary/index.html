@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Results summary component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @font-face {
+      font-family: 'Hanken Grotesk';
+      src: url(./assets/fonts/static/HankenGrotesk-Bold.ttf);
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: 'Hanken Grotesk';
+      src: url(./assets/fonts/static/HankenGrotesk-ExtraBold.ttf);
+      font-weight: 800;
+    }
+    @font-face {
+      font-family: 'Hanken Grotesk';
+      src: url(./assets/fonts/static/HankenGrotesk-Medium.ttf);
+      font-weight: 500;
+    }
+    :root {
+      --color-red: hsl(0, 100%, 67%);
+      --color-red-background: hsl(0, 100%, 96%);
+      --color-yellow: hsl(39, 100%, 56%);
+      --color-yellow-background: hsl(39, 100%, 96%);
+      --color-green: hsl(166, 100%, 37%);
+      --color-green-background: hsl(166, 100%, 96%);
+      --color-blue: hsl(234, 85%, 45%);
+      --color-blue-background: hsl(234, 85%, 96%);
+      --color-background-slate: hsl(252, 100%, 67%);
+      --color-background-royal: hsl(241, 81%, 54%);
+      --color-background-violet:hsla(256, 72%, 46%, 1);
+      --color-background-persian: hsla(241, 72%, 46%, 0);
+      --color-white:hsl(0, 0%, 100%);
+      --color-pale-blur:hsl(221, 100%, 96%);
+      --color-lavender:hsl(241, 100%, 89%);
+      --color-dark: hsl(224, 30%, 27%);
+      --mobile: 375px;
+      --desktop: 1440px;
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Hanken Grotesk';
+      font-size: 18px;
+      color: var(--color-dark);
+    }
+
+    .results {
+      color: var(--color-white);
+      background-image: linear-gradient(var(--color-background-slate) -50%, var(--color-background-royal));
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      padding: 30px 16px 40px;
+      text-align: center;
+    }
+    .results-title {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--color-lavender)
+    }
+
+    .circle {
+      width: 8.4rem;
+      height: 8.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 50%;
+      margin: auto;
+      background-image: linear-gradient(to top, var(--color-background-persian), var(--color-dark));
+    }
+
+    .total {
+      margin-bottom: 20px;
+    }
+
+    .total-result {
+      font-size: 3rem;
+      font-weight: 800;
+    }
+
+    .total-full-marks {
+      color: var(--color-white);
+      opacity: 0.3;
+    }
+    
+    .comments-type {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .comments-message {
+      color: var(--color-lavender);
+      max-width: 80%;
+      margin: auto;
+    }
+
+    .summary {
+      padding: 20px;
+    }
+
+    .summary-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--color-dark);
+      margin-bottom: 20px;
+    }
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .summary-item-title {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .summary-fraction {
+      color: rgb(163,157,157);
+    }
+
+    .summary-fraction-now {
+      font-weight: 700;
+      color: var(--color-dark);
+    }
+    
+    .summary-fraction-sp {
+      font-size: 1.1rem;
+      padding-left: 6px;
+      padding-right: 2px;
+      vertical-align: top;
+    }
+
+    .reaction {
+      color: var(--color-red);
+      background-color: var(--color-red-background);
+    }
+    
+    .memory {
+      color: var(--color-yellow);
+      background-color: var(--color-yellow-background);
+    }
+    
+    .verbal {
+      color: var(--color-green);
+      background-color: var(--color-green-background);
+    }
+
+    .visual {
+      color: var(--color-blue);
+      background-color: var(--color-blue-background);
+    }
+
+    .submit-btn {
+      display: block;
+      margin-top: 35px;
+      width: 100%;
+      border-radius: 50px;
+      padding: 20px;
+      font-size: 1.2rem;
+      border: 0;
+      background-color: var(--color-dark);
+      color: var(--color-white);
+    }
+
+    @media screen and (min-width: 768px) {
+      html, body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .wrap {
+        display: flex;
+        max-width: var(--desktop);
+        margin: auto;
+      }
+      .results {
+        flex: 1;
+        border-radius: 30px;
+        z-index: 1;
+        max-width: 400px;
+      }
+      .results-title {
+        font-size: 1.4rem;
+      }
+      .circle {
+        width: 12rem;
+        height: 12rem;
+      }
+      .total-result {
+        font-size: 4rem;
+      }
+      .comments-type {
+        font-size:1.8rem;
+      }
+      .summary {
+        flex: 1;
+        max-width: 400px;
+        border-radius: 30px;
+        box-shadow: 10px 10px 30px hsl(241, 100%, 96%);
+        padding: 50px 40px 50px 90px;
+        margin-left: -50px;
+        background-color: var(--color-white);
+      }
+      .submit-btn {
+        cursor: pointer;
+      }
+      .submit-btn:hover {
+        background-image: linear-gradient(var(--color-background-slate), var(--color-background-violet));
+      }
+    }
+   
+  </style>
+</head>
+<body>
+
+  <main class="wrap">
+    <section class="results">
+      <h1 class="results-title">Your Result</h1>
+      <div class="circle total">
+        <span class="total-result">76</span>
+        <span class="total-full-marks">of 100</span>
+      </div>
+      <div class="comments">
+        <p class="comments-type">Great</p>
+        <p class="comments-message">You scored higher than 65% of the people who have taken these tests.</p>
+      </div>
+    </section>
+
+    <section class="summary">
+      <h2 class="summary-title">Summary</h2>
+      <div id="summary-items"></div>
+      <button class="submit-btn">Continue</button>
+    </section>
+
+  </main>
+
+  <script>
+    fetch('./data.json').then((response) => response.json()).then((data) => {
+
+      const summary = document.getElementById('summary-items');
+
+      const classNames = {
+        Reaction: 'reaction',
+        Memory: 'memory',
+        Verbal: 'verbal',
+        Visual: 'visual',
+      }
+
+      const template = ({category, score, icon} = {}) => `
+      <div class="summary-item ${classNames[category]}">
+        <img class="summary-icon" src="${icon}" alt="${classNames[category]}">
+        <h3 class="summary-item-title">${category}</h3>
+        <div class="summary-fraction">
+          <span class="summary-fraction-now">${score}</span>
+          <span class="summary-fraction-sp">/</span>
+          <span>100</span>
+        </div>
+      </div>
+      `
+
+      summary.innerHTML = data.reduce((acc, item) => {
+        acc += template(item)
+        return acc;
+      }, '')
+    })
+  </script>
+</body>
+</html>
