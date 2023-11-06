@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Advice generator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --color-light: hsl(193, 38%, 86%);
+        --color-green: hsl(150, 100%, 66%);
+        --color-gray: hsl(217, 19%, 38%);
+        --color-gray-blue: hsl(217, 19%, 24%);
+        --color-dark: hsl(218, 23%, 16%);
+      }
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      img {
+        width: 100%;
+      }
+      html {
+        font-size: 28px;
+        font-family: "Manrope", sans-serif;
+        color: var(--color-light);
+        background-color: var(--color-dark);
+      }
+      html,
+      body {
+        height: 100%;
+        min-height: 100%;
+      }
+      .wrap {
+        min-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .card {
+        padding: 30px 30px 60px 30px;
+        background-color: var(--color-gray-blue);
+        border-radius: 10px;
+        position: relative;
+        margin: 20px;
+        max-width: 500px;
+        text-align: center;
+      }
+      .no {
+        color: var(--color-green);
+        letter-spacing: 0.2rem;
+        text-transform: uppercase;
+        font-size: 0.5rem;
+        margin-bottom: 40px;
+      }
+      .text {
+        display: block;
+        font-size: 1rem;
+        margin-bottom: 30px;
+      }
+      button {
+        width: 80px;
+        height: 80px;
+        background-color: var(--color-green);
+        border-radius: 50%;
+        padding: 24px;
+        outline: 0;
+        border: 0;
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        bottom: -40px;
+      }
+
+      @media screen and (min-width: 375px) {
+        button:hover {
+          box-shadow: 0 0 30px var(--color-green);
+        }
+      .card {
+        padding-bottom: 70px;
+      }
+        .no {
+          margin-bottom: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="card">
+        <p class="no">Advice #<span id="adviceId"></span></p>
+        <q class="text" id="adviceText">Loading...</q>
+        <picture>
+          <source
+            srcset="./images/pattern-divider-desktop.svg"
+            media="(min-width: 375px)"
+          />
+          <img src="./images/pattern-divider-mobile.svg" alt="divider icon" />
+        </picture>
+        <button>
+          <img src="./images/icon-dice.svg" alt="button icon - dice" />
+        </button>
+      </div>
+    </main>
+
+    <script>
+      async function fetchData() {
+        try {
+          const data = await fetch("https://api.adviceslip.com/advice").then(
+            (response) => {
+              return response.status !== 404 ? response.json() : null;
+            }
+          );
+
+          if (!data) {
+            alert("Error, not get data");
+            return;
+          }
+
+          const { advice, id } = data.slip;
+          adviceId.innerText = id;
+          adviceText.innerText = advice;
+
+          console.log();
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+
+      fetchData();
+    </script>
+  </body>
+</html>
