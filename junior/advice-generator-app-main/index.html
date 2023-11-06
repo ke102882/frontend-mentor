@@ -90,12 +90,16 @@
       }
 
       @media screen and (min-width: 375px) {
+        button {
+          transition: 0.125s;
+          cursor: pointer;
+        }
         button:hover {
           box-shadow: 0 0 30px var(--color-green);
         }
-      .card {
-        padding-bottom: 70px;
-      }
+        .card {
+          padding-bottom: 70px;
+        }
         .no {
           margin-bottom: 24px;
         }
@@ -106,7 +110,7 @@
     <main class="wrap">
       <div class="card">
         <p class="no">Advice #<span id="adviceId"></span></p>
-        <q class="text" id="adviceText">Loading...</q>
+        <q class="text" id="adviceText"></q>
         <picture>
           <source
             srcset="./images/pattern-divider-desktop.svg"
@@ -114,21 +118,36 @@
           />
           <img src="./images/pattern-divider-mobile.svg" alt="divider icon" />
         </picture>
-        <button>
+        <button id="fetchDataButton">
           <img src="./images/icon-dice.svg" alt="button icon - dice" />
         </button>
       </div>
     </main>
 
     <script>
+      let isFetchLoading = false;
+      let limitFetchTime = 2; // Advice is cached for 2 seconds;
+      let lastFetchTime = 0;
+
+      fetchDataButton.addEventListener("click", fetchData);
+
       async function fetchData() {
+        if (isFetchLoading) {
+          return;
+        }
+        if (Date.now() - lastFetchTime < 1000 * 2) {
+          alert("The next time will be in two seconds");
+          return;
+        }
+        adviceText.innerText = "Loading...";
+        isFetchLoading = true;
+        lastFetchTime = Date.now();
         try {
           const data = await fetch("https://api.adviceslip.com/advice").then(
             (response) => {
               return response.status !== 404 ? response.json() : null;
             }
           );
-
           if (!data) {
             alert("Error, not get data");
             return;
@@ -137,10 +156,10 @@
           const { advice, id } = data.slip;
           adviceId.innerText = id;
           adviceText.innerText = advice;
-
-          console.log();
         } catch (error) {
           console.error(error.message);
+        } finally {
+          isFetchLoading = false;
         }
       }
 
