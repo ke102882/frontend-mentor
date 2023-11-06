@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Four card feature section</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --color-red: hsl(0, 78%, 62%);
+        --color-cyan: hsl(180, 62%, 55%);
+        --color-orange: hsl(34, 97%, 64%);
+        --color-blue: hsl(212, 86%, 64%);
+        --color-dark: hsl(234, 12%, 34%);
+        --color-light: hsl(0, 0%, 98%);
+        --color-gray: hsl(229, 6%, 66%);
+        --color-shadow: hsl(212, 86%, 92%);
+        --color-shadow2: hsl(229, 6%, 96%);
+      }
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      html {
+        font-size: 15px;
+        font-family: "Poppins", sans-serif;
+        color: var(--color-dark);
+      }
+
+      .font-200 {
+        font-weight: 200;
+      }
+
+      .font-400 {
+        font-weight: 400;
+      }
+
+      .font-600 {
+        font-weight: 600;
+      }
+
+      .wrap {
+        max-width: 1440px;
+        margin: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+
+      .header {
+        padding-top: 100px;
+        padding-bottom: 80px;
+        text-align: center;
+      }
+
+      .header-title {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.7rem;
+        padding-bottom: 20px;
+      }
+
+      .header-describe {
+        color: var(--color-gray);
+      }
+
+      .card {
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow:  0 5px 10px var(--color-shadow2), 0 10px 15px var(--color-shadow);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+      }
+      .card::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+      }
+      .card.cyan::after {
+        background-color: var(--color-cyan);
+      }
+      .card.red::after {
+        background-color: var(--color-red);
+      }
+      .card.orange::after {
+        background-color: var(--color-orange);
+      }
+      .card.blue::after {
+        background-color: var(--color-blue);
+      }
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .card-describe {
+        color: var(--color-gray);
+        margin-bottom: 30px;
+      }
+      .card-footer {
+        text-align: right;
+      }
+
+      @media screen and (min-width: 375px) {
+        .wrap {
+          width: 80%;
+        }
+        .header-title {
+          font-size: 2.4rem;
+        }
+        .header-describe {
+          font-size: 1.25rem;
+          max-width: 684px;
+          margin: auto;
+        }
+        .main {
+          display: flex;
+          gap: 30px;
+          align-items: center;
+        }
+        .main .col {
+          width: 33%;
+        }
+        .card-describe {
+          margin-bottom: 5s0px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header wrap">
+      <h1 class="header-title">
+        <span class="font-200">Reliable, efficient delivery</span>
+        <strong class="font-600">Powered by Technology</strong>
+      </h1>
+
+      <p class="header-describe">
+        Our Artificial Intelligence powered tools use millions of project data
+        points to ensure that your project is successful
+      </p>
+    </header>
+
+    <main class="main wrap">
+      <div class="col">
+        <div class="card cyan">
+          <div class="card-title">Supervisor</div>
+          <div class="card-describe">
+            Monitors activity to identify project roadblocks
+          </div>
+          <div class="card-footer">
+            <img src="./images/icon-supervisor.svg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card red">
+          <div class="card-title">Team Builder</div>
+          <div class="card-describe">
+            Scans our talent network to create the optimal team for your project
+          </div>
+          <div class="card-footer">
+            <img src="./images/icon-team-builder.svg" alt="" />
+          </div>
+        </div>
+
+        <div class="card orange">
+          <div class="card-title">Karma</div>
+          <div class="card-describe">
+            Regularly evaluates our talent to ensure quality
+          </div>
+          <div class="card-footer">
+            <img src="./images/icon-karma.svg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card blue">
+          <div class="card-title">Calculator</div>
+          <div class="card-describe">
+            Uses data from past projects to provide better delivery estimates
+          </div>
+          <div class="card-footer">
+            <img src="./images/icon-calculator.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
