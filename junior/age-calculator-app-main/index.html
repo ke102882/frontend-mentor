@@ -315,11 +315,11 @@
 
       function getAge(date) {
         const today = new Date();
-        const userDate = typeof date === "string" ? new Date(date) : date;
+        const inputDate = typeof date === "string" ? new Date(date) : date;
 
-        let year = today.getFullYear() - userDate.getFullYear();
-        let months = today.getMonth() - userDate.getMonth();
-        let days = today.getDate() - userDate.getDate();
+        let year = today.getFullYear() - inputDate.getFullYear();
+        let months = today.getMonth() - inputDate.getMonth();
+        let days = today.getDate() - inputDate.getDate();
 
         /**
          * [tip]
@@ -328,7 +328,7 @@
          * 2. 30 day = 1 month
          * 3. 31 day = 1 month
          *
-         * 我採用的是以 userDate 同年同月的日期來計算，所以是浮動的。
+         * 我採用的是以 inputDate 同年同月的日期來計算，所以是浮動的。
          * （但大家都是固定的平均值去算..所以計算可能會差上兩天，比如，選擇用固定的 31 天計算時，就會跟浮動的計算差上兩天，因為浮動的月底可能是 29。）
          **/
         if (year <= 0) {
@@ -337,19 +337,17 @@
 
         if (months < 0) {
           year = Math.max(0, year - 1);
-
-          months = 12 - (userDate.getMonth() + 1) + (today.getMonth() + 1); // getMonth() => 0~11
+          months += 12;
         }
 
         if (days < 0) {
           months = Math.max(0, months - 1);
-          const userMonth = userDate.getMonth() + 1;
           const LastMonthDateTotal = new Date(
-            userDate.getFullYear(),
-            userMonth,
+            inputDate.getFullYear(),
+            inputDate.getMonth() + 1,
             0
           ).getDate();
-          days = LastMonthDateTotal - userDate.getDate() + today.getDate();
+          days += LastMonthDateTotal;
         }
 
         return {
