@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Age calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --color-purple: hsl(259, 100%, 65%);
+        --color-red: hsl(0, 100%, 67%);
+        --color-white: hsl(0, 0%, 100%);
+        --color-off-white: hsl(0, 0%, 94%);
+        --color-grey-light: hsl(0, 0%, 86%);
+        --color-grey-smokey: hsl(0, 1%, 44%);
+        --color-off-black: hsl(0, 0%, 8%);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      img,
+      input {
+        width: 100%;
+      }
+      span {
+        display: inline-block;
+      }
+      label {
+        display: block;
+      }
+      html {
+        font-size: 32px;
+        font-family: "Poppins", sans-serif;
+        background-color: var(--color-off-white);
+        font-weight: 700;
+      }
+      .wrap {
+        min-height: 100dvh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+      .card {
+        background-color: var(--color-white);
+        box-shadow: 0 0 10px var(--color-off-white);
+        border-radius: 20px 20px 120px 20px;
+        padding: 50px 20px;
+      }
+      .input-date-wrap {
+        display: flex;
+        gap: 10px;
+      }
+      .input-date-item {
+        flex: 1;
+      }
+      .input-date-label {
+        color: var(--color-grey-smokey);
+        font-size: 0.4rem;
+        letter-spacing: 0.1rem;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .input-date-item input {
+        border-radius: 10px;
+        padding: 14px 10px;
+        font-size: 0.8rem;
+        box-sizing: border-box;
+        outline: 0;
+        border: 1px solid var(--color-grey-light);
+        font-weight: 800;
+        caret-color: var(--color-purple);
+      }
+      .input-date-item input::placeholder {
+        color: var(--color-grey-smokey);
+      }
+      .input-date-item input:focus {
+        border-color: var(--color-purple);
+      }
+      .input-date-message {
+        font-size: 0.4rem;
+        margin-top: 10px;
+        display: block;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--color-red);
+        line-height: 1;
+        opacity: 0;
+      }
+      .error .input-date-label {
+        color: var(--color-red);
+      }
+      .error input {
+        border-color: var(--color-red);
+      }
+      .error .input-date-message {
+        opacity: 1;
+      }
+      .button-wrap {
+        margin-top: 10px;
+        margin-bottom: 30px;
+        position: relative;
+        text-align: center;
+      }
+      .button-wrap::after {
+        content: "";
+        height: 1px;
+        background-color: var(--color-grey-light);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+      .button-main {
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--color-purple);
+        outline: 0;
+        border: 0;
+        padding: 17px;
+        position: relative;
+        z-index: 1;
+        font-weight: 800;
+      }
+      .result-date-item {
+        font-weight: 800;
+        font-style: italic;
+        font-size: 1.5rem;
+        line-height: 1.2;
+      }
+      .result-date-number {
+        color: var(--color-purple);
+      }
+
+      @media screen and (min-width: 376px) {
+        .card {
+          padding: 50px;
+          width: 100%;
+          max-width: 600px;
+          border-radius: 20px 20px 30% 20px;
+        }
+        .input-date-wrap {
+          gap: 30px;
+        }
+        .input-date-item {
+          max-width: 25%;
+        }
+        .input-date-item input {
+          padding: 20px;
+          font-size: 0.9rem;
+        }
+        .button-wrap {
+          text-align: right;
+        }
+        .button-main {
+          width: 80px;
+          height: 80px;
+        }
+        .button-main:hover {
+          background-color: var(--color-off-black);
+        }
+        .result-date-item {
+          font-size: 2.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="card">
+        <form id="form">
+          <div class="input-date-wrap">
+            <label class="input-date-item" data-form-item="DD">
+              <span class="input-date-label">DAY</span>
+              <input name="DD" type="number" placeholder="DD" />
+              <span class="input-date-message">Must be a valid day</span>
+            </label>
+
+            <label class="input-date-item" data-form-item="MM">
+              <span class="input-date-label">MONTH</span>
+              <input name="MM" type="number" placeholder="MM" />
+              <span class="input-date-message">Must be a valid month</span>
+            </label>
+
+            <label class="input-date-item" data-form-item="YYYY">
+              <span class="input-date-label">YEAR</span>
+              <input name="YYYY" type="number" placeholder="YYYY" />
+              <span class="input-date-message">Must be in the post</span>
+            </label>
+          </div>
+          <div class="button-wrap">
+            <button class="button-main" type="submit">
+              <img src="./assets/images/icon-arrow.svg" alt="submit icon" />
+            </button>
+          </div>
+        </form>
+
+        <div class="result-date">
+          <div class="result-date-item">
+            <span id="result_year" class="result-date-number"></span>
+            <span class="result-date-text">years</span>
+          </div>
+
+          <div class="result-date-item">
+            <span id="result_months" class="result-date-number"></span>
+            <span class="result-date-text">months</span>
+          </div>
+
+          <div class="result-date-item">
+            <span id="result_days" class="result-date-number"></span>
+            <span class="result-date-text">days</span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      initAgeResult();
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = {};
+        const checkDateValidOptions = { YYYY: null, MM: null };
+        let isValid = true;
+
+        document
+          .querySelectorAll("[data-form-item]")
+          .forEach((item, index, parents) => {
+            const { formItem } = item.dataset;
+            const { value, name } = item.querySelector("input");
+
+            if (name === "DD") {
+              [...parents].forEach((parent) => {
+                const key = parent.dataset.formItem;
+                if (checkDateValidOptions[key] === null) {
+                  checkDateValidOptions[key] =
+                    parent.querySelector("input").value;
+                }
+              });
+            }
+            const { YYYY, MM } = checkDateValidOptions;
+            const isDateValid = checkDateValid(name, value, {
+              year: YYYY,
+              month: MM ? MM - 1 : null,
+            });
+            if (!value || !isDateValid) {
+              item.classList.add("error");
+              isValid = false;
+            } else {
+              item.classList.remove("error");
+              formData[name] = value;
+            }
+          });
+
+        if (!isValid) return;
+
+        const { YYYY, DD, MM } = formData;
+        const ageDate = new Date(YYYY, MM - 1, DD);
+
+        initAgeResult(getAge(ageDate));
+      });
+
+      function checkDateValid(key, number, { year, month } = {}) {
+        number = +number;
+        if (isNaN(number)) {
+          return false;
+        }
+        const newDate = year && month ? new Date(year, month, 1) : new Date();
+        const _year = newDate.getFullYear();
+        const _month = 12;
+        const _dateTotal = new Date(_year, newDate.getMonth() + 1, 0).getDate();
+
+        switch (key) {
+          case "DD":
+            return number >= 1 && number <= _dateTotal;
+          case "MM":
+            return number >= 1 && number <= _month;
+          case "YYYY":
+            return number >= 100 && number <= _year;
+        }
+        return false;
+      }
+
+      function getAge(date) {
+        const today = new Date();
+        const userDate = typeof date === "string" ? new Date(date) : date;
+
+        let year = today.getFullYear() - userDate.getFullYear();
+        let months = today.getMonth() - userDate.getMonth();
+        let days = today.getDate() - userDate.getDate();
+
+        /**
+         * [tip]
+         * 網路上年齡計算機有以下幾種計算方式：
+         * 1. 29 day = 1 month
+         * 2. 30 day = 1 month
+         * 3. 31 day = 1 month
+         *
+         * 我採用的是取 以 userDate 同年同月的日期來計算，所以是浮動的。
+         * （但大家都是固定的平均值去算..所以計算可能會差上兩天，比如，選擇用固定的31天計算時，就會跟浮動的計算差上兩天，因為浮動的月底可能是 29。）
+         **/
+        if (year <= 0) {
+          year = Math.max(0, year);
+        }
+
+        if (months <= 0) {
+          year = Math.max(0, year - 1);
+
+          months = 12 - (userDate.getMonth() + 1) + (today.getMonth() + 1); // getMonth() => 0~11
+        }
+
+        if (days <= 0) {
+          months = Math.max(0, months - 1);
+          const userMonth = userDate.getMonth() + 1;
+          const LastMonthDateTotal = new Date(
+            userDate.getFullYear(),
+            userMonth,
+            0
+          ).getDate();
+          days = LastMonthDateTotal - userDate.getDate() + today.getDate();
+          console.log(userMonth, LastMonthDateTotal);
+        }
+
+        return {
+          year,
+          months,
+          days,
+        };
+      }
+
+      function initAgeResult({ year, months, days } = {}) {
+        const defaultShowText = '- -';
+        animateValue(result_year, 0, year, 1000 * (year / 400), defaultShowText);
+        animateValue(result_months, 0, months, 1000 * (months / 6), defaultShowText);
+        animateValue(result_days, 0, days, 1000 * (days / 15), defaultShowText);
+      }
+
+      function animateValue(el, start, end, duration, defaultShowText) {
+        if (!end) return el.innerText = defaultShowText;
+
+        let startTimestamp = null;
+        const step = (timestamp) => {
+          if (!startTimestamp) startTimestamp = timestamp;
+          const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+          el.innerText = Math.floor(progress * (end - start) + start);
+          if (progress < 1) {
+            window.requestAnimationFrame(step);
+          }
+        };
+        window.requestAnimationFrame(step);
+      }
+
+    </script>
+  </body>
+</html>
