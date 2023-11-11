@@ -128,7 +128,8 @@
       let isFetchLoading = false;
       let limitFetchTime = 2; // Advice is cached for 2 seconds;
       let lastFetchTime = 0;
-
+      
+      fetchData();
       fetchDataButton.addEventListener("click", fetchData);
 
       async function fetchData() {
@@ -162,7 +163,6 @@
           });
       }
 
-      fetchData();
     </script>
   </body>
 </html>
