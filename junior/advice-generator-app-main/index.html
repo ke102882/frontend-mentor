@@ -142,25 +142,24 @@
         adviceText.innerText = "Loading...";
         isFetchLoading = true;
         lastFetchTime = Date.now();
-        try {
-          const data = await fetch("https://api.adviceslip.com/advice").then(
-            (response) => {
-              return response.status !== 404 ? response.json() : null;
-            }
-          );
-          if (!data) {
-            alert("Error, not get data");
-            return;
-          }
 
-          const { advice, id } = data.slip;
-          adviceId.innerText = id;
-          adviceText.innerText = advice;
-        } catch (error) {
-          console.error(error.message);
-        } finally {
-          isFetchLoading = false;
-        }
+        fetch("https://api.adviceslip.com/advice")
+          .then((response) => {
+            return response.status !== 404 ? response.json() : null;
+          })
+          .then((data) => {
+            if (!data) {
+              alert("Error, not get data");
+              return;
+            }
+            const { advice, id } = data.slip;
+            adviceId.innerText = id;
+            adviceText.innerText = advice;
+          })
+          .catch((error) => console.error(error.message))
+          .finally(() => {
+            isFetchLoading = false;
+          });
       }
 
       fetchData();
