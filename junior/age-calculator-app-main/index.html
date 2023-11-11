@@ -258,6 +258,10 @@
                 }
               });
             }
+            if (name === "MM") {
+              checkDateValidOptions.YYYY = new Date().getFullYear();
+              checkDateValidOptions.MM = new Date().getMonth() + 1;
+            }
             const { YYYY, MM } = checkDateValidOptions;
             const isDateValid = checkDateValid(name, value, {
               year: YYYY,
@@ -277,7 +281,7 @@
         const { YYYY, DD, MM } = formData;
         const ageDate = new Date(YYYY, MM - 1, DD);
 
-        initAgeResult(getAge(ageDate));
+        updateAgeResult(getAge(ageDate));
       });
 
       function checkDateValid(key, number, { year, month } = {}) {
@@ -285,10 +289,18 @@
         if (isNaN(number)) {
           return false;
         }
-        const newDate = year && month ? new Date(year, month, 1) : new Date();
-        const _year = newDate.getFullYear();
-        const _month = 12;
-        const _dateTotal = new Date(_year, newDate.getMonth() + 1, 0).getDate();
+        const today = new Date();
+        const inputDate = year && month ? new Date(year, month, 1) : today;
+        const _year = inputDate.getFullYear();
+        // 如果輸入的年是同年，那月份最大值為今日月份，否則是 12
+        const _month =
+          _year === today.getFullYear() ? today.getMonth() + 1 : 12;
+        // 如果輸入的年是同年同月，那日期最大值為此時的同月月底，否則是 輸入的月份月底
+        const _dateTotal =
+          _year === today.getFullYear() &&
+          inputDate.getMonth() === today.getMonth()
+            ? today.getDate()
+            : new Date(_year, inputDate.getMonth() + 1, 0).getDate();
 
         switch (key) {
           case "DD":
@@ -323,13 +335,13 @@
           year = Math.max(0, year);
         }
 
-        if (months <= 0) {
+        if (months < 0) {
           year = Math.max(0, year - 1);
 
           months = 12 - (userDate.getMonth() + 1) + (today.getMonth() + 1); // getMonth() => 0~11
         }
 
-        if (days <= 0) {
+        if (days < 0) {
           months = Math.max(0, months - 1);
           const userMonth = userDate.getMonth() + 1;
           const LastMonthDateTotal = new Date(
@@ -347,16 +359,25 @@
         };
       }
 
-      function initAgeResult({ year, months, days } = {}) {
-        const defaultShowText = '- -';
-        animateValue(result_year, 0, year, 1000 * (year / 400), defaultShowText);
-        animateValue(result_months, 0, months, 1000 * (months / 6), defaultShowText);
-        animateValue(result_days, 0, days, 1000 * (days / 15), defaultShowText);
+      function initAgeResult() {
+        const defaultShowText = "- -";
+        result_year.innerText = defaultShowText;
+        result_months.innerText = defaultShowText;
+        result_days.innerText = defaultShowText;
       }
 
-      function animateValue(el, start, end, duration, defaultShowText) {
-        if (!end) return el.innerText = defaultShowText;
+      function updateAgeResult({ year, months, days } = {}) {
+        animateValue(result_year, 0, year, Math.max(1, 1000 * (year / 400)));
+        animateValue(
+          result_months,
+          0,
+          months,
+          Math.max(1, 1000 * (months / 6))
+        );
+        animateValue(result_days, 0, days, Math.max(1, 1000 * (days / 15)));
+      }
 
+      function animateValue(el, start, end, duration) {
         let startTimestamp = null;
         const step = (timestamp) => {
           if (!startTimestamp) startTimestamp = timestamp;
@@ -368,7 +389,6 @@
         };
         window.requestAnimationFrame(step);
       }
-
     </script>
   </body>
 </html>
