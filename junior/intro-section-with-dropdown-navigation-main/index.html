@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Intro section with dropdown navigation</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --color-white: hsl(0, 0%, 98%);
+        --color-gray: hsl(0, 0%, 41%);
+        --color-dark: hsl(0, 0%, 8%);
+      }
+
+      * {
+        padding: 0;
+        margin: 0;
+        /* outline: 1px solid red; */
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        border-radius: 10px;
+        color: var(--color-gray);
+        padding: 10px 20px;
+      }
+
+      picture {
+        display: block;
+        width: 100%;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--color-gray);
+      }
+
+      li {
+        list-style: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+
+      html,
+      body {
+        font-size: 18px;
+        font-family: 'Epilogue', sans-serif;
+        overflow-x: hidden;
+        color: var(--color-gray);
+        background-color: var(--color-white);
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .border-btn {
+        border: 1px solid var(--color-gray);
+      }
+      .fill-btn {
+        color: var(--color-white);
+        background-color: var(--color-dark);
+      }
+
+      .menu li {
+        position: relative;
+      }
+      .menu li ul {
+        background-color: var(--color-white);
+      }
+      .menu > li > ul li {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .menu li.expanded [alt='collapsed'],
+      .menu li [alt='expanded'] {
+        visibility: hidden;
+        display: none;
+      }
+      .menu li.expanded [alt='expanded'] {
+        visibility: visible;
+        display: inline-block;
+      }
+
+      .menu li > ul {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.4s;
+      }
+      .menu .menu-item-label {
+        display: inline-block;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 0.8rem;
+      }
+
+      .menu .menu-item-label > img {
+        margin-left: 10px;
+      }
+
+      .login-and-register {
+        display: flex;
+        gap: 10px;
+      }
+
+      .content-wrap .fill-btn {
+        margin: auto;
+        font-size: 1rem;
+        padding: 15px 30px;
+        border-radius: 15px;
+      }
+
+      h1 {
+        color: var(--color-dark);
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+
+      .marker-logos {
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+      .marker-logos img {
+        width: 100%;
+      }
+      @media screen and (max-width: 767px) {
+        .aside {
+          position: fixed;
+          z-index: 1;
+          width: 100%;
+          left: 100%;
+          top: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0);
+
+          transform: translateX(0%);
+          transition: background-color 0.4s, transform 0.4s 0.4s;
+        }
+
+        .aside-main {
+          padding: 20px 30px;
+          width: 250px;
+          background-color: var(--color-white);
+
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          transform: translateX(100%);
+          transition: transform 0.4s;
+        }
+
+        .aside.open .aside-main {
+          transform: translateX(0%);
+        }
+
+        .aside.open {
+          background-color: rgba(0, 0, 0, 0.8);
+          transform: translateX(-100%);
+          transition: background-color 0.4s;
+        }
+        .menu li.expanded.menu-item {
+          padding-bottom: 10px;
+        }
+        .menu li ul {
+          padding-left: 20px;
+        }
+        .menu-close {
+          text-align: right;
+        }
+        .login-and-register {
+          padding-top: 40px;
+          padding-bottom: 40px;
+          flex-direction: column;
+        }
+        .hero-wrap {
+          margin-bottom: 20px;
+          text-align: center;
+        }
+        .content-wrap {
+          padding: 20px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        button {
+          cursor: pointer;
+        }
+        header {
+          padding: 30px 40px;
+        }
+        main {
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          padding: 50px 100px;
+          max-width: 1440px;
+          margin: auto;
+        }
+        .menu-close,
+        .menu-open {
+          display: none;
+        }
+        .aside {
+          flex: 1;
+          margin-left: 50px;
+        }
+        .aside-main {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .menu {
+          display: flex;
+          gap: 30px;
+        }
+        .menu-item {
+          min-width: 100px;
+          flex: 1;
+        }
+        .menu-item-label {
+          cursor: pointer;
+          user-select: none;
+        }
+        .menu-item-label:hover {
+          color: var(--color-dark);
+        }
+        .menu > li.expanded > .menu-item-label {
+          color: var(--color-dark);
+        }
+        .menu li > ul {
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+          position: absolute;
+          border-radius: 15px;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1;
+          margin-top: 5px;
+        }
+        .menu > li > ul li {
+          min-width: 150px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .menu > li > ul li:first-child {
+          margin-top: 20px;
+        }
+        .menu > li > ul li:last-child {
+          margin-bottom: 20px;
+        }
+        .hero-wrap {
+          flex: 45%;
+        }
+        .content-wrap {
+          flex: 55%;
+          display: flex;
+          justify-content: center;
+        }
+        .content-wrap > div {
+          max-width: 700px;
+        }
+
+        h1 {
+          font-size: 5rem;
+          margin-bottom: 50px;
+        }
+        h1 span {
+          display: block;
+        }
+
+        .content-wrap p {
+          margin-bottom: 50px;
+          font-size: 1rem;
+          max-width: 70%;
+        }
+
+        .content-wrap .fill-btn {
+          margin-bottom: 100px;
+        }
+
+        .marker-logos {
+          justify-content: flex-start;
+          gap: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo"><img src="./images/logo.svg" alt="logo" /></div>
+      <div class="menu-open">
+        <img src="./images/icon-menu.svg" alt="open menu" />
+      </div>
+      <div class="aside">
+        <div class="aside-main">
+          <div class="menu-close">
+            <img src="./images/icon-close-menu.svg" alt="close menu" />
+          </div>
+          <ul class="menu">
+            <li class="menu-item">
+              <span class="menu-item-label"
+                >Features
+                <img src="./images/icon-arrow-up.svg" alt="expanded" />
+                <img src="./images/icon-arrow-down.svg" alt="collapsed" />
+              </span>
+
+              <ul>
+                <li>
+                  <img src="./images/icon-todo.svg" alt="todo icon" />
+                  <a class="menu-item-label" href="javascript:;">Todo List</a>
+                </li>
+                <li>
+                  <img src="./images/icon-calendar.svg" alt="calendar icon" />
+                  <a class="menu-item-label" href="javascript:;">Calendar</a>
+                </li>
+                <li>
+                  <img src="./images/icon-reminders.svg" alt="reminders icon" />
+                  <a class="menu-item-label" href="javascript:;">Reminders</a>
+                </li>
+                <li>
+                  <img src="./images/icon-planning.svg" alt="planning icon" />
+                  <a class="menu-item-label" href="javascript:;">Planning</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <span class="menu-item-label"
+                >Company
+                <img src="./images/icon-arrow-up.svg" alt="expanded" />
+                <img src="./images/icon-arrow-down.svg" alt="collapsed" />
+              </span>
+
+              <ul>
+                <li><a class="menu-item-label" href="javascript:;">History</a></li>
+                <li><a class="menu-item-label" href="javascript:;">Our Team</a></li>
+                <li><a class="menu-item-label" href="javascript:;">Blog</a></li>
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <a class="menu-item-label" href="javascript:;"> Careers </a>
+            </li>
+
+            <li class="menu-item">
+              <a class="menu-item-label" href="javascript:;"> About </a>
+            </li>
+          </ul>
+          <div class="login-and-register">
+            <button class="text-btn">Login</button>
+            <button class="border-btn">Register</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero-wrap">
+        <picture>
+          <source media="(min-width: 768px)" srcset="./images/image-hero-desktop.png" />
+          <img src="./images/image-hero-mobile.png" alt="hero images" />
+        </picture>
+      </div>
+      <div class="content-wrap">
+        <div>
+          <h1><span>Make</span> remote work</h1>
+          <p>
+            Get your team in sync, no matter your location. Streamline processes, create team
+            rituals, and watch productivity soar.
+          </p>
+          <button class="fill-btn">Learn more</button>
+
+          <div class="marker-logos">
+            <div><img src="./images/client-databiz.svg" alt="databiz logo" /></div>
+            <div><img src="./images/client-audiophile.svg" alt="audiophile logo" /></div>
+            <div><img src="./images/client-meet.svg" alt="meet logo" /></div>
+            <div><img src="./images/client-maker.svg" alt="maker logo" /></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const menuOpenElement = document.querySelector('.menu-open');
+      const menuCloseElement = document.querySelector('.menu-close');
+      const menu = document.querySelector('.aside');
+      const menuItemLabels = document.querySelectorAll('.menu-item-label');
+      const menuItems = document.querySelectorAll('.menu-item');
+      const pcSize = 768;
+
+      menuOpenElement.addEventListener('click', () => {
+        menu.classList.toggle('open');
+      });
+
+      menuCloseElement.addEventListener('click', () => {
+        menu.classList.remove('open');
+      });
+
+      menu.addEventListener('click', (e) => {
+        const target = e.target;
+        if (![...target.classList].includes('aside')) return;
+        target.classList.toggle('open');
+      });
+
+      menuItemLabels.forEach((el) => {
+        el.dataset.clickBlur = true;
+
+        el.addEventListener('click', (e) => {
+          const target = e.currentTarget;
+          const { parentNode } = target;
+          if (![...parentNode.classList].includes('menu-item')) return;
+          if (!parentNode.querySelector('ul')) return;
+
+          const subMenu = parentNode.querySelector('ul');
+          if (!subMenu) return;
+
+          if (window.innerWidth >= pcSize && ![...parentNode.classList].includes('expanded')) {
+            initMenu();
+          }
+
+          parentNode.classList.toggle('expanded');
+          subMenu.style.height = subMenu.style.height ? '' : `${subMenu.scrollHeight}px`;
+        });
+      });
+
+      const clickBlursElement = document.querySelectorAll('[data-click-blur]');
+      document.addEventListener('click', (e) => {
+        if (!e.target.dataset.clickBlur) {
+          initMenu();
+        }
+      });
+
+      const sizes = {
+        value: getSizeKey(),
+        oldValue: '',
+      };
+
+      window.addEventListener('resize', () => {
+        sizes.oldValue = sizes.value;
+        sizes.value = getSizeKey();
+        if (sizes.oldValue !== sizes.value) {
+          initMenu();
+        }
+      });
+
+      function initMenu() {
+        menuItems.forEach((item) => {
+          const subMenu = item.querySelector('ul');
+          subMenu && (subMenu.style.height = '');
+          item.classList.remove('expanded');
+        });
+      }
+      function getSizeKey() {
+        return window.innerWidth >= pcSize ? 'pc' : 'mobile';
+      }
+    </script>
+  </body>
+</html>
