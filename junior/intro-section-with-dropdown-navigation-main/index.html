@@ -30,12 +30,17 @@
       }
 
       button {
+        font-family: inherit;
         background-color: transparent;
         border: 0;
         outline: 0;
         border-radius: 10px;
         color: var(--color-gray);
         padding: 10px 20px;
+      }
+
+      button:hover {
+        color: var(--color-dark);
       }
 
       picture {
@@ -46,6 +51,7 @@
       a {
         text-decoration: none;
         color: var(--color-gray);
+        font-weight: 500;
       }
 
       li {
@@ -64,6 +70,7 @@
         overflow-x: hidden;
         color: var(--color-gray);
         background-color: var(--color-white);
+        font-weight: 500;
       }
 
       header {
@@ -77,8 +84,15 @@
         border: 1px solid var(--color-gray);
       }
       .fill-btn {
+        border: 1px solid transparent;
         color: var(--color-white);
         background-color: var(--color-dark);
+        transition: 0.25s;
+      }
+
+      .fill-btn:hover {
+        background-color: transparent;
+        border: 1px solid var(--color-gray);
       }
 
       .menu li {
