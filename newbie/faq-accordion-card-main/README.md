@@ -35,7 +35,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Git Pages](https://ke102882.github.io/frontend-mentor/newbie/faq-accordion-card-main)
+- Live Site URL: [GitHub Pages](https://ke102882.github.io/frontend-mentor/newbie/faq-accordion-card-main)
 
 ## My process
 

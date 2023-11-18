@@ -34,7 +34,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Git Pages](https://ke102882.github.io/frontend-mentor/junior/advice-generator-app-main)
+- Live Site URL: [GitHub Pages](https://ke102882.github.io/frontend-mentor/junior/advice-generator-app-main)
 
 ## My process
 
