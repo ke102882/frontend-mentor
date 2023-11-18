@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Expenses chart component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --color-primary: hsl(10, 79%, 65%);
+        --color-assist: hsl(186, 34%, 60%);
+        --color-dark: hsl(25, 47%, 15%);
+        --color-dark-md: hsl(28, 10%, 53%);
+        --color-background: hsl(27, 66%, 92%);
+        --color-light: hsl(33, 100%, 98%);
+        --radius: 12px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: 400;
+        font-size: 1rem;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+
+      html,
+      body {
+        height: 100%;
+        min-height: 100%;
+        font-size: 18px;
+        font-family: 'DM Sans', sans-serif;
+        background-color: var(--color-background);
+        color: var(--color-dark);
+      }
+
+      main {
+        max-width: 550px;
+        min-height: 100%;
+        margin: auto;
+        padding: 40px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .header {
+        width: 100%;
+        background-color: var(--color-primary);
+        color: var(--color-light);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        border-radius: var(--radius);
+      }
+
+      .balance-label {
+        margin-bottom: 6px;
+      }
+
+      .balance-value {
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+
+      .card {
+        width: 100%;
+        background-color: var(--color-light);
+        border-radius: var(--radius);
+        padding: 30px 20px;
+      }
+
+      .chart-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .chart-views {
+        color: var(--color-dark-md);
+      }
+
+      .chart-views-values-row {
+        display: flex;
+        gap: 10px;
+        height: 150px;
+        margin-bottom: 10px;
+        margin-top: 60px;
+      }
+
+      .chart-views-labels-row {
+        display: flex;
+        gap: 10px;
+        font-size: 0.8rem;
+      }
+
+      .chart-views-col {
+        flex: 1;
+        text-align: center;
+        position: relative;
+      }
+
+      .chart-views-values-value {
+        width: 100%;
+        height: 0%;
+        transition: height 1s;
+        position: absolute;
+        bottom: 0;
+      }
+
+      .chart-views-values-value-background {
+        border-radius: 4px;
+        background-color: var(--color-primary);
+        height: 100%;
+      }
+
+      .chart-views-values-value-text {
+        background-color: var(--color-dark);
+        color: var(--color-light);
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        padding: 8px 6px;
+        border-radius: 4px;
+        transform: translateY(-100%) translateX(-50%);
+        opacity: 0;
+      }
+
+      .chart-views-values-value:hover .chart-views-values-value-background {
+        opacity: 0.8;
+      }
+
+      .chart-views-values-value:hover .chart-views-values-value-text {
+        opacity: 1;
+      }
+
+      .chart-views-values-value--activity .chart-views-values-value-background {
+        background-color: var(--color-assist);
+      }
+
+      .chart-footer {
+        margin-top: 30px;
+        border-top: 3px solid var(--color-background);
+        padding-top: 30px;
+      }
+
+      .chart-footer-title {
+        color: var(--color-dark-md);
+      }
+
+      .chart-total-wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .chart-total-value {
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .chart-total-increase-wrap {
+        text-align: right;
+      }
+
+      .chart-total-increase-value {
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      .chart-total-increase-title {
+        color: var(--color-dark-md);
+      }
+
+      @media screen and (min-width: 768px) {
+        :root {
+          --radius: 15px;
+        }
+        .header {
+          padding: 20px 30px;
+        }
+        .balance-value {
+          font-size: 1.8rem;
+        }
+        .card {
+          padding: 30px 40px;
+        }
+        .chart-title {
+          font-size: 1.8rem;
+        }
+        .chart-views-values-row {
+          height: 200px;
+          gap: 15px;
+        }
+        .chart-views-values-row .chart-views-values-value {
+          cursor: pointer;
+        }
+        .chart-views-labels-row {
+          gap: 15px;
+          font-size: 1rem;
+        }
+        .chart-total-value {
+          font-size: 2.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="header">
+        <div class="balance-wrap">
+          <h2 class="balance-label">My balance</h2>
+          <div class="balance-value">$921.48</div>
+        </div>
+
+        <div class="logo">
+          <img src="./images/logo.svg" alt="logo" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="chart-wrap">
+          <h1 class="chart-title">Spending - Last 7 days</h1>
+
+          <div class="chart-views">
+            <div class="chart-views-values-row">
+              <!-- <div class="chart-views-col">
+                <div class="chart-views-values-value">
+                  <div class="chart-views-values-value-background"></div>
+                  <div class="chart-views-values-value-text">$0.00</div>
+                </div>
+              </div> -->
+            </div>
+            <div class="chart-views-labels-row">
+              <!-- <div class="chart-views-col">mon</div>-->
+            </div>
+          </div>
+
+          <div class="chart-footer">
+            <h3 class="chart-footer-title">Total this month</h3>
+
+            <div class="chart-total-wrap">
+              <div class="chart-total-value">$0.00</div>
+              <div class="chart-total-increase-wrap">
+                <div class="chart-total-increase-value">+2.4%</div>
+                <div class="chart-total-increase-title">from last month</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const totalElement = document.querySelector('.chart-total-value');
+
+      const { init, updateValue, getValueElement } = bindChart({
+        defaultValue: toFixed(0, 2),
+        template: '${value}',
+        valueElement: document.querySelector('.chart-views-values-row'),
+        labelElement: document.querySelector('.chart-views-labels-row'),
+      });
+
+      const dayMap = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+      const nowDay = new Date().getDay();
+
+      init();
+
+      getValueElement({
+        dataLabel: dayMap[nowDay],
+        callback: (el) => {
+          if (!el) return '';
+          const lineHightClass = 'chart-views-values-value--activity';
+          el.classList.add(lineHightClass);
+        },
+      });
+
+      fetch('./data.json')
+        .then((response) => response.json())
+        .then((data) => {
+          const totalAmount = 478.33;
+          data.forEach(({ day, amount }) => {
+            updateValue({
+              dataLabel: day,
+              dataValue: amount,
+              total: totalAmount,
+            });
+          });
+
+          totalElement.innerText = `$${totalAmount}`;
+        });
+
+      function toFixed(num, digits = 0) {
+        num = +num;
+        if (isNaN(num)) {
+          return '';
+        }
+        let intAry = (num + '').split('.');
+        let int = intAry[0];
+        let decimal = intAry[1] || '';
+
+        while (decimal.length < digits) {
+          decimal += '0';
+        }
+
+        return `${int}${digits ? '.' + decimal.substring(0, digits) : ''}`;
+      }
+
+      function bindChart({
+        valueElement,
+        labelElement,
+        defaultValue = 0,
+        template = '${value}',
+      } = {}) {
+        return {
+          init() {
+            const labelList = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+            const fragmentValueChild = document.createDocumentFragment();
+            const fragmentLabelChild = document.createDocumentFragment();
+
+            labelList.forEach((label) => {
+              const valueCol = document.createElement('div');
+              const labelCol = document.createElement('div');
+              valueCol.classList.add('chart-views-col');
+              labelCol.classList.add('chart-views-col');
+              valueCol.dataset.dataLabel = label;
+              labelCol.dataset.dataLabel = label;
+              labelCol.innerText = label;
+
+              const valuesValue = document.createElement('div');
+              valuesValue.classList.add('chart-views-values-value');
+
+              const background = document.createElement('div');
+              background.classList.add('chart-views-values-value-background');
+
+              const text = document.createElement('div');
+              text.classList.add('chart-views-values-value-text');
+              text.innerText = template.replace(/\{value\}/, defaultValue);
+
+              valuesValue.appendChild(background);
+              valuesValue.appendChild(text);
+              valueCol.appendChild(valuesValue);
+              fragmentValueChild.appendChild(valueCol);
+              fragmentLabelChild.append(labelCol);
+            });
+
+            valueElement.appendChild(fragmentValueChild);
+            labelElement.appendChild(fragmentLabelChild);
+          },
+          updateValue({ dataLabel, dataValue, total } = {}) {
+            const proportion = (dataValue / total) * 100;
+            const el = document.querySelector(`[data-data-label=${dataLabel}]`);
+            const chartValueBox = el.querySelector('.chart-views-values-value');
+            const chartValueText = el.querySelector('.chart-views-values-value-text');
+            chartValueBox.style.height = `${toFixed(proportion, 2)}%`;
+            chartValueText.innerText = template.replace(/\{value\}/, dataValue);
+          },
+          getValueElement({ dataLabel, callback } = {}) {
+            if (!dataLabel) {
+              return '';
+            }
+            const el = document.querySelector(`[data-data-label=${dataLabel}]`);
+            callback(el);
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

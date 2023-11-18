@@ -10,3 +10,4 @@
 ## JUNIOR
 - [advice-generator-app-main](https://ke102882.github.io/frontend-mentor/junior/advice-generator-app-main)
 - [age-calculator-app-main](https://ke102882.github.io/frontend-mentor/junior/age-calculator-app-main)
+- [expenses-chart-component-main](https://ke102882.github.io/frontend-mentor/junior/expenses-chart-component-main)
